@@ -1,6 +1,6 @@
 function Gallery() {
   return (
-    <div>
+    <div className="w-3/4">
       <h1>Gallery</h1>
     </div>
   )

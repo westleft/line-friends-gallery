@@ -16,10 +16,12 @@ function App() {
   ]
 
   return (
-    <>
-      <Category />
-      <Gallery />
-    </>
+    <div className="p-4">
+      <div className="flex">
+        <Category />
+        <Gallery />
+      </div>
+    </div>
   )
 }
 
