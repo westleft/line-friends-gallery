@@ -1,8 +1,29 @@
+'use client'
+
+import { useNavigate } from 'react-router-dom'
+
 function Category() {
+  const navigate = useNavigate()
+  const categories = ['All', 'Brown', 'Cony', 'Sally']
+
+  const handleCategoryClick = (category: string) => {
+    navigate(`?q=${category}`)
+  }
+
   return (
-    <div className="w-1/4">
-      <h1>Category</h1>
-    </div>
+    <ul className="w-1/4 mr-4 sticky top-4 h-fit">
+      {
+        categories.map(category => (
+          <li
+            key={category}
+            onClick={() => handleCategoryClick(category)}
+            className="cursor-pointer hover:bg-gray-100 p-2 rounded"
+          >
+            <p className="font-bold">{category}</p>
+          </li>
+        ))
+      }
+    </ul>
   )
 }
 
