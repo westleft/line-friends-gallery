@@ -1,14 +1,12 @@
-import { createClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
+import { supabaseClient } from '../utils'
 import BlurImage from './BlurImage'
-
-const supabase = createClient('', '')
 
 function Gallery() {
   const [images, setImages] = useState([])
 
   async function getImages() {
-    const { data, error } = await supabase.from('gallery').select('*')
+    const { data, error } = await supabaseClient.from('gallery').select('*')
     if (error) {
       console.error('Error fetching images:', error)
     }
