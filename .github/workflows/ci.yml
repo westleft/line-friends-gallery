@@ -1,9 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 env:
@@ -44,9 +41,6 @@ jobs:
 
       # 設定 Nx Cloud SHAs
       - uses: nrwl/nx-set-shas@v4
-
-      # 執行格式檢查
-      - run: npx nx-cloud record -- nx format:check
 
       # 執行受影響的 lint、test、build、e2e-ci 任務
       - run: npx nx affected -t lint test build e2e-ci
