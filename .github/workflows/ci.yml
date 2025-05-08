@@ -19,29 +19,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout 代碼
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           filter: tree:0
 
-      # 安裝 pnpm，這個步驟一定要在最前面
+      # 2. 安裝 pnpm
       - uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
-      # 安裝 Node.js 並啟用 corepack 以支援 pnpm
+      # 3. 安裝 Node.js 並啟用 corepack 支援 pnpm
       - uses: actions/setup-node@v3
         with:
           node-version: 20
 
       - run: corepack enable
 
-      # 安裝依賴
+      # 4. 安裝依賴
       - run: pnpm install --frozen-lockfile
 
-      # 設定 Nx Cloud SHAs
+      # 5. 設定 Nx Cloud SHAs
       - uses: nrwl/nx-set-shas@v4
 
-      # 執行受影響的 lint、test、build、e2e-ci 任務
+      # 6. 開始 CI 並執行 build 任務
+      - run: npx nx-cloud start-ci-run --stop-agents-after="build"
+      
+      # 7. 執行受影響的任務
       - run: npx nx affected -t lint test build e2e-ci
+
+      # 8. 結束 CI 記錄
+      - run: npx nx-cloud stop-all-agents
