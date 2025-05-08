@@ -3,14 +3,14 @@ import { supabaseClient } from '../utils'
 import BlurImage from './BlurImage'
 
 function Gallery() {
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState<any[]>([])
 
   async function getImages() {
     const { data, error } = await supabaseClient.from('gallery').select('*')
     if (error) {
       console.error('Error fetching images:', error)
     }
-    setImages(data)
+    setImages(data as any)
     return data
   }
 
@@ -23,7 +23,7 @@ function Gallery() {
       <h1 className="text-2xl font-bold mb-6">Gallery</h1>
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
         {images.map(image => (
-          <div key={image.id} className="mb-4 break-inside-avoid">
+          <div key={image} className="mb-4 break-inside-avoid">
             <BlurImage image={image} />
           </div>
         ))}
