@@ -1,15 +1,14 @@
 name: CI
+
 on:
   push:
     branches:
-      # Change this if your primary branch is not main
       - main
   pull_request:
 
 env:
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
-# Needed for nx-set-shas when run on the main branch
 permissions:
   actions: write
   contents: read
@@ -19,28 +18,35 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           filter: tree:0
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'pnpm'
-
+      # 安裝 pnpm，這個步驟一定要在最前面
       - uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
-      # This line enables distribution
-      # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
-      # - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
+      # 安裝 Node.js 並啟用 corepack 以支援 pnpm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: corepack enable
+
+      # 安裝依賴
       - run: pnpm install --frozen-lockfile
 
+      # 設定 Nx Cloud SHAs
       - uses: nrwl/nx-set-shas@v4
 
+      # 執行格式檢查
       - run: npx nx-cloud record -- nx format:check
+
+      # 執行受影響的 lint、test、build、e2e-ci 任務
       - run: npx nx affected -t lint test build e2e-ci
