@@ -11,6 +11,12 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.49.4
         version: 2.49.4
+      blurhash:
+        specifier: ^2.0.5
+        version: 2.0.5
+      zod:
+        specifier: ^3.24.4
+        version: 3.24.4
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^3.7.3
@@ -48,6 +54,9 @@ importers:
 
   apps/gallery-admin:
     dependencies:
+      '@packages/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.3)
@@ -107,6 +116,8 @@ importers:
       typescript-eslint:
         specifier: ^8.30.1
         version: 8.32.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
+
+  packages/utils: {}
 
 packages:
 
