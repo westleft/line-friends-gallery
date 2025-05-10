@@ -16,7 +16,8 @@ export default antfu({
 
   // TypeScript and Vue are autodetected, you can also explicitly enable them:
   typescript: true,
-  react: true,
+  // react: true,
+  vue: true,
 
   // Disable jsonc and yaml support
   jsonc: false,

@@ -1,34 +1,38 @@
 <script setup lang="ts">
+import Login from './components/Login.vue'
 import { useGalleryUpload } from './composables/useGalleryUpload'
+
 const { imageRef, formData, handleImageLoad, handleFormSubmit } = useGalleryUpload()
 
-const handleSubmit = async () => {
+async function handleSubmit() {
   const result = await handleFormSubmit()
   console.log(result)
 }
-
 </script>
 
 <template>
   <div>
+    <Login />
     {{ formData }}
-    <img 
-      :src="formData.url" 
-      ref="imageRef" 
-      alt="" 
+    <img
+      ref="imageRef"
+      :src="formData.url"
+      alt=""
       @load="handleImageLoad"
-    />
+    >
     <form @submit.prevent="handleSubmit">
       <p>URL：</p>
-      <input v-model="formData.url" type="url" />
+      <input v-model="formData.url" type="url">
       <p>hash：</p>
-      <input disabled v-model="formData.hash" type="text" />
+      <input v-model="formData.hash" disabled type="text">
       <p>width：{{ formData.width }}</p>
-      <input disabled v-model="formData.width" type="text" />
+      <input v-model="formData.width" disabled type="text">
       <p>height：{{ formData.height }}</p>
-      <input disabled v-model="formData.height" type="text" />
+      <input v-model="formData.height" disabled type="text">
 
-      <button type="submit">Submit</button>
+      <button type="submit">
+        Submit
+      </button>
     </form>
   </div>
 </template>
