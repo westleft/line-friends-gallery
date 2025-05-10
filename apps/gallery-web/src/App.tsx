@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="p-4">
       <div className="flex">
-        <Category />
+        {/* <Category /> */}
         <Gallery />
       </div>
     </div>

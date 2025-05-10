@@ -73,6 +73,9 @@ importers:
 
   apps/gallery-web:
     dependencies:
+      '@packages/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@4.1.5)
