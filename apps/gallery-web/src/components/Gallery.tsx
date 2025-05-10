@@ -1,5 +1,5 @@
+import { supabaseClient } from '@packages/utils'
 import { useEffect, useState } from 'react'
-import { supabaseClient } from '../utils'
 import BlurImage from './BlurImage'
 
 function Gallery() {
@@ -19,9 +19,9 @@ function Gallery() {
   }, [])
 
   return (
-    <div className="w-3/4 mx-auto">
+    <div className="w-full mx-auto">
       <h1 className="text-2xl font-bold mb-6">Gallery</h1>
-      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-6 gap-4">
         {images.map(image => (
           <div key={image} className="mb-4 break-inside-avoid">
             <BlurImage image={image} />
