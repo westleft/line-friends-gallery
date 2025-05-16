@@ -4,7 +4,7 @@ import { Blurhash } from 'react-blurhash'
 
 export type GalleryItem = Database['public']['Tables']['gallery']['Row']
 
-function BlurImage(image: GalleryItem) {
+function BlurImage({ image }: { image: GalleryItem }) {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [height, setHeight] = useState<number>(0)
   const element = useRef<HTMLDivElement>(null)
