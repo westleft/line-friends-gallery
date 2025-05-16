@@ -3,5 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "./index.ts"
+  "main": "./index.ts",
+  "dependencies": {
+    "@packages/types": "workspace:*"
+  }
 }

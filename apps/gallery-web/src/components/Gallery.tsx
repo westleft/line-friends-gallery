@@ -1,16 +1,20 @@
+import type { Database } from '@packages/types'
 import { supabaseClient } from '@packages/utils'
 import { useEffect, useState } from 'react'
 import BlurImage from './BlurImage'
 
+type GalleryType = Database['public']['Tables']['gallery']['Row']
+
 function Gallery() {
-  const [images, setImages] = useState<any[]>([])
+  const [images, setImages] = useState<GalleryType[]>([])
 
   async function getImages() {
     const { data, error } = await supabaseClient.from('gallery').select('*')
-    if (error) {
+    if (!data) {
       console.error('Error fetching images:', error)
+      return
     }
-    setImages(data as any)
+    setImages(data)
     return data
   }
 
@@ -23,7 +27,7 @@ function Gallery() {
       <h1 className="text-2xl font-bold mb-6">Gallery</h1>
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-6 gap-4">
         {images.map(image => (
-          <div key={image} className="mb-4 break-inside-avoid">
+          <div key={image.hash} className="mb-4 break-inside-avoid">
             <BlurImage image={image} />
           </div>
         ))}

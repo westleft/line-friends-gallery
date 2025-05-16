@@ -1,7 +1,10 @@
+import type { Database } from '@packages/types'
 import { useEffect, useRef, useState } from 'react'
 import { Blurhash } from 'react-blurhash'
 
-function BlurImage({ image }: { image: { id: number, url: string, hash: string, width: number, height: number } }) {
+export type GalleryItem = Database['public']['Tables']['gallery']['Row']
+
+function BlurImage({ image }: { image: GalleryItem }) {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [height, setHeight] = useState<number>(0)
   const element = useRef<HTMLDivElement>(null)
