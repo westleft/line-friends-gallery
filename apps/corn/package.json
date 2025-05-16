@@ -1,0 +1,14 @@
+{
+    "name": "corn",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite-node index.ts"
+    },
+    "devDependencies": {
+        "@packages/utils": "workspace:*",
+        "vite-node": "^3.1.3"
+    }
+}
