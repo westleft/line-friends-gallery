@@ -1,5 +1,6 @@
 import type { Database } from '@packages/types'
 import { supabaseClient } from '@packages/utils'
+import { Masonry } from 'masonic'
 import { useEffect, useState } from 'react'
 import BlurImage from './BlurImage'
 
@@ -14,24 +15,28 @@ function Gallery() {
       console.error('Error fetching images:', error)
       return
     }
-    setImages(data)
     return data
   }
 
   useEffect(() => {
-    getImages()
+    (async () => {
+      const images = await getImages()
+      if (images) {
+        setImages(images)
+      }
+    })()
   }, [])
 
   return (
     <div className="w-full mx-auto">
       <h1 className="text-2xl font-bold mb-6">Gallery</h1>
-      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-6 gap-4">
-        {images.map(image => (
-          <div key={image.hash} className="mb-4 break-inside-avoid">
-            <BlurImage image={image} />
-          </div>
-        ))}
-      </div>
+      <Masonry
+        items={images}
+        render={({ data }) => <BlurImage image={data} />}
+        columnGutter={16}
+        columnWidth={300}
+        maxColumnCount={4}
+      />
     </div>
   )
 }
